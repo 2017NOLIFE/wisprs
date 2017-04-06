@@ -6,7 +6,7 @@ require 'rbnacl/libsodium'
 class Message
   STORE_DIR = 'db/'.freeze
 
-  attr_accessor :id, :project, :name, :description, :document
+  attr_accessor :id, :from, :to, :about, :title, :exp, :document
 
   def initialize(new_Message)
     @id = new_Message['id'] || new_id

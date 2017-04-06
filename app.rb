@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'json'
 require 'base64'
-require_relative 'models/Message'
+require_relative 'models/message'
 
 # secure chat based api
 class WispersBase < Sinatra::Base
@@ -11,7 +11,7 @@ class WispersBase < Sinatra::Base
   end
 
   get '/?' do
-    'ConfigShare web API up at /api/v1'
+    'message store api is hanging out in /api/v1'
   end
 
   get '/api/v1/Messages/?' do
