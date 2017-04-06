@@ -2,18 +2,20 @@ require 'json'
 require 'base64'
 require 'rbnacl/libsodium'
 
-# Holds a full configuration document information
-class Configuration
+# Holds a full Message document information
+class Message
   STORE_DIR = 'db/'.freeze
 
   attr_accessor :id, :project, :name, :description, :document
 
-  def initialize(new_configuration)
-    @id = new_configuration['id'] || new_id
-    @project = new_configuration['project']
-    @name = new_configuration['name']
-    @description = new_configuration['description']
-    @document = new_configuration['document']
+  def initialize(new_Message)
+    @id = new_Message['id'] || new_id
+    @from = new_Message['from']
+    @to = new_Message['to']
+    @about = new_Message['about']
+    @title = new_Message['title']
+    @exp = new_Message['exp']
+    @document = new_Message['document']
   end
 
   def new_id
@@ -22,9 +24,11 @@ class Configuration
 
   def to_json(options = {})
     JSON({ id: @id,
-           project: @project,
-           name: @name,
-           description: @description,
+           from: @from,
+           to: @to,
+           about: @about,
+           title: @title,
+           exp: @exp,
            document: @document },
          options)
   end
@@ -41,7 +45,7 @@ class Configuration
 
   def self.find(find_id)
     config_file = File.read(STORE_DIR + find_id + '.txt')
-    Configuration.new JSON.parse(config_file)
+    Message.new JSON.parse(config_file)
   end
 
   def self.all
@@ -51,6 +55,6 @@ class Configuration
   end
 
   def self.setup
-    Dir.mkdir(Configuration::STORE_DIR) unless Dir.exist? STORE_DIR
+    Dir.mkdir(Message::STORE_DIR) unless Dir.exist? STORE_DIR
   end
 end
