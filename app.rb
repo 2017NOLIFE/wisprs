@@ -14,13 +14,13 @@ class WispersBase < Sinatra::Base
     'message store api is hanging out in /api/v1'
   end
 
-  get '/api/v1/Messages/?' do
+  get '/api/v1/messages/?' do
     content_type 'application/json'
     output = { Message_id: Message.all }
     JSON.pretty_generate(output)
   end
 
-  get '/api/v1/Messages/:id/document' do
+  get '/api/v1/messages/:id/document' do
     content_type 'text/plain'
 
     begin
@@ -31,7 +31,7 @@ class WispersBase < Sinatra::Base
     end
   end
 
-  get '/api/v1/Messages/:id.json' do
+  get '/api/v1/messages/:id.json' do
     content_type 'application/json'
 
     begin
@@ -43,7 +43,7 @@ class WispersBase < Sinatra::Base
     end
   end
 
-  post '/api/v1/Messages/?' do
+  post '/api/v1/messages/?' do
     content_type 'application/json'
 
     begin
