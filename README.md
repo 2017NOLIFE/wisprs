@@ -1,6 +1,9 @@
-# ConfigShare API
+# Secure Chat API
 
 API to store and retrieve configuration files
+
+# Dependency status
+!https://gemnasium.com/badges/github.com/2017NOLIFE/wisprs.svg(Dependency Status)!:https://gemnasium.com/github.com/2017NOLIFE/wisprs
 
 ## Routes
 
