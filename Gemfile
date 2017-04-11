@@ -23,6 +23,6 @@ group :test do
 end
 
 group :development, :test do
-  gem 'rubocup'
+  gem 'rubocop'
   gem 'sqlite3'
 end
