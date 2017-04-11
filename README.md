@@ -1,6 +1,10 @@
-# Secured Chatting API
+
+# Secure Chat API
 
 API for secure chatting between users
+
+# Dependency status
+[![Dependency Status](https://gemnasium.com/badges/github.com/2017NOLIFE/wisprs.svg)](https://gemnasium.com/github.com/2017NOLIFE/wisprs)
 
 ## Routes
 
