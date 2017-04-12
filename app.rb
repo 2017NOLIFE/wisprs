@@ -12,6 +12,9 @@ class WispersBase < Sinatra::Base
 
   get '/?' do
     'message store api is hanging out in /api/v1'
+    output = { Message_id: Message_model.all }
+    JSON.pretty_generate(output)
+
   end
 
   get '/api/v1/messages/?' do
