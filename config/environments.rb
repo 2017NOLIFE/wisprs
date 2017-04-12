@@ -9,6 +9,7 @@ configure :test do
 end
 
 configure :production do
+	# set DATABASE_URL env var
 end
 
 configure do
