@@ -1,11 +1,11 @@
 require 'sinatra'
 
 configure :development do
-  ENV['DATABASE_URL'] = 'sqlite3://db/dev.db'
+  ENV['DATABASE_URL'] = 'sqlite://db/dev.db'
 end
 
 configure :test do
-  ENV['DATABASE_URL'] = 'sqlite3://db/test.db'
+  ENV['DATABASE_URL'] = 'sqlite://db/test.db'
 end
 
 configure :production do
