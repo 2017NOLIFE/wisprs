@@ -33,6 +33,92 @@ class WispersBase < Sinatra::Base
     end
   end
 
+  # get from a message table
+  get '/api/v1/messages/:id/body/?' do
+   content_type 'text/plain'
+
+    begin
+     Configuration
+      .where("id = #{params[:id]}")
+      .first
+      .body
+    rescue => e
+      status 404
+      e.inspect
+    end
+   end
+
+   get '/api/v1/messages/:id/from/?' do
+    content_type 'text/plain'
+
+     begin
+      Configuration
+       .where("id = #{params[:id]}")
+       .first
+       .from
+     rescue => e
+       status 404
+       e.inspect
+     end
+    end
+
+    get '/api/v1/messages/:id/title/?' do
+     content_type 'text/plain'
+
+      begin
+       Configuration
+        .where("id = #{params[:id]}")
+        .first
+        .title
+      rescue => e
+        status 404
+        e.inspect
+      end
+     end
+
+     get '/api/v1/messages/:id/about/?' do
+      content_type 'text/plain'
+
+       begin
+        Configuration
+         .where("id = #{params[:id]}")
+         .first
+         .about
+       rescue => e
+         status 404
+         e.inspect
+       end
+      end
+
+      get '/api/v1/messages/:id/expire_date/?' do
+       content_type 'text/plain'
+
+        begin
+         Configuration
+          .where("id = #{params[:id]}")
+          .first
+          .expire_date
+        rescue => e
+          status 404
+          e.inspect
+        end
+       end
+
+       get '/api/v1/messages/:id/status/?' do
+        content_type 'text/plain'
+
+         begin
+          Configuration
+           .where("id = #{params[:id]}")
+           .first
+           .status
+         rescue => e
+           status 404
+           e.inspect
+         end
+        end
+# end message table variables
+
   post '/api/v1/messages/?' do
     content_type 'application/json'
 
