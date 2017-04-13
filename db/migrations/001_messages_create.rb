@@ -1,4 +1,5 @@
 require 'sequel'
+require 'sinatra'
 
 Sequel.migration do
   change do
