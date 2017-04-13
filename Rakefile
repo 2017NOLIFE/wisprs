@@ -1,5 +1,6 @@
 require './app'
 require 'rake/testtask'
+require 'sequel'
 
 puts "Environment: #{ENV['RACK_ENV'] || 'development'}"
 
