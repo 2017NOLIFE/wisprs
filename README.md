@@ -15,9 +15,14 @@ API for secure chatting between users
 ### Message Routes
 
 - GET `api/v1/messages`: returns a json of all the messages
-- GET `api/v1/messages/[ID].json`: returns a json of all information about a message with given ID
-- GET `api/v1/messages/[ID]/document`: returns a text/plain document with a message document for given ID
+- GET `api/v1/messages/[ID]`: returns a json of all information about a message with given ID
 - POST `api/v1/messages/`: creates a new message
+
+### Public keys Routes
+
+- GET `api/v1/public_keys`: returns a json of all the public keys
+- GET `api/v1/public_keys/[ID]`: returns a json of all information about a public key with given ID
+- POST `api/v1/public_keys/`: creates a new public key
 
 ## Install
 
