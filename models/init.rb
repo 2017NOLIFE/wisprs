@@ -1,4 +1,3 @@
-require 'sequel'
-Dir.glob("#{File.dirname(_FILE_)}/*.rb").each do |file|
-	require file
+Dir.glob("#{File.dirname(__FILE__)}/*.rb").each do |file|
+  require file
 end
