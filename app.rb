@@ -1,48 +1,35 @@
 require 'sinatra'
-require 'json'
-require 'base64'
-require_relative 'models/message'
+require_relative 'config/environments'
+require_relative 'models/init'
 
-# secure chat based api
+# Secure chat based api
 class WispersBase < Sinatra::Base
-  configure do
-    enable :logging
-    Message.setup
-  end
+  before do
+   host_url = "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
+   @request_url = URI.join(host_url, request.path.to_s)
+ end
 
   get '/?' do
-    'message store api is hanging out in /api/v1'
-    output = { Message_id: Message_model.all }
-    JSON.pretty_generate(output)
-
+    'Secure chat web API up at /api/v1'
   end
 
   get '/api/v1/messages/?' do
     content_type 'application/json'
-    output = { Message_id: Message.all }
-    JSON.pretty_generate(output)
+
+    JSON.pretty_generate(data: Message.all)
   end
 
-  get '/api/v1/messages/:id/document' do
-    content_type 'text/plain'
-
-    begin
-      Base64.strict_decode64 Message.find(params[:id]).document
-    rescue => e
-      status 404
-      e.inspect
-    end
-  end
-
-  get '/api/v1/messages/:id.json' do
+  get '/api/v1/messages/:id' do
     content_type 'application/json'
 
-    begin
-      output = { Message: Message.find(params[:id]) }
-      JSON.pretty_generate(output)
-    rescue => e
-      logger.info "FAILED to GET Message: #{e.inspect}"
-      status 404
+    message = Message.where("id = #{params[:id]}").first
+
+    if message
+      JSON.pretty_generate(data: project)
+    else
+      error_msg = "FAILED TO GET MESSAGE: \"#{params[:id]}\""
+      logger.info error_msg
+      halt 404, error_msg
     end
   end
 
@@ -50,18 +37,15 @@ class WispersBase < Sinatra::Base
     content_type 'application/json'
 
     begin
-      new_data = JSON.parse(request.body.read)
-      new_config = Message.new(new_data)
-      if new_config.save
-        logger.info "NEW Message STORED: #{new_config.id}"
-      else
-        halt 400, "Could not store config: #{new_config}"
-      end
-
-      redirect '/api/v1/Messages/' + new_config.id + '.json'
+      new_message = JSON.parse(request.body.read)
+      saved_message = Message.create(new_message)
     rescue => e
-      logger.info "FAILED to create new config: #{e.inspect}"
-      status 400
+      error_msg = "FAILED to create a new message: #{e.inspect}"
+      logger.info error_msg
+      halt 400, error_msg
     end
+
+    status 201
+    headers('Location' => [@request_url.to_s, saved_message.id].join('/'))
   end
 end
