@@ -45,7 +45,7 @@ describe 'Testing Public key resource routes' do
 
   describe 'Getting an index of existing public keys' do
     it 'HAPPY: should find list of existing public keys' do
-      (1..5).each { |i| Public_key.create(name: 'Public key #{i}', key: 'key #{i}', owner: 'user#{i}') }
+      (1..5).each { |i| Public_key.create(name: "Public key #{i}", key: "key #{i}", owner: "user#{i}") }
       result = get '/api/v1/public_keys'
       keys = JSON.parse(result.body)
       _(keys['data'].count).must_equal 5
