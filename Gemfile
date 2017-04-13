@@ -14,14 +14,12 @@ gem 'rbnacl-libsodium'
 
 group :development do
   gem 'rerun'
-  gem 'sqlite3'
 end
 
 group :test do
   gem 'minitest'
   gem 'minitest-rg'
   gem 'rack-test'
-  gem 'sqlite3'
 end
 
 group :development, :test do
