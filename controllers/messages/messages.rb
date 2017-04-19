@@ -12,7 +12,8 @@ class WispersBase < Sinatra::Base
     content_type 'application/json'
 
     message_id = params[:id]
-    message = Message.where(id: message_id)
+
+    message = Message.where(id: message_id).first
     
 
     if message
