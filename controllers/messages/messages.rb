@@ -12,7 +12,8 @@ class WispersBase < Sinatra::Base
     content_type 'application/json'
 
     message_id = params[:id]
-    message = Message[message_id]
+    message = Message.where(id: message_id)
+    
 
     if message
       JSON.pretty_generate(data: message)
@@ -25,7 +26,7 @@ class WispersBase < Sinatra::Base
 
   post '/api/v1/messages/?' do
     content_type 'application/json'
-
+    
     begin
       new_message = JSON.parse(request.body.read)
       saved_message = Message.create(new_message)
