@@ -5,6 +5,9 @@ require 'sequel'
 # Holds a Message's Information
 class Message < Sequel::Model
 	plugin :uuid, field: :id
+
+	#set_allowed_columns :title, :about
+
 	def to_json(options = {})
     JSON({
 						type: 'message',

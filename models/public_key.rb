@@ -6,6 +6,8 @@ require 'sequel'
 class Public_key < Sequel::Model
 	plugin :uuid, field: :id
 
+	#set_allowed_columns :name, :key
+
 	def to_json(options = {})
     JSON({
 						type: 'public_key',
