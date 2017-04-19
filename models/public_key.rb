@@ -4,7 +4,7 @@ require 'sequel'
 
 # Holds a Public key's Information
 class Public_key < Sequel::Model
-
+	plugin :uuid, field: :id
 
 	def to_json(options = {})
     JSON({
