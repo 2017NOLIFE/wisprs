@@ -1,4 +1,4 @@
-require_relative 'spec_helper'
+require_relative './spec_helper'
 
 describe 'Testing Public key resource routes' do
   before do
