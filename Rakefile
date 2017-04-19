@@ -1,6 +1,5 @@
-require './app'
 require 'rake/testtask'
-require 'sequel'
+require './init.rb'
 
 puts "Environment: #{ENV['RACK_ENV'] || 'development'}"
 
@@ -42,4 +41,11 @@ namespace :db do
 
   desc 'Perform migration reset (full rollback and migration)'
   task reset: [:rollback, :migrate]
+end
+
+namespace :crypto do
+  desc 'Create sample cryptographic key for database'
+  task :db_key do
+    puts "DB_KEY: #{SecureDB.generate_key}"
+  end
 end
