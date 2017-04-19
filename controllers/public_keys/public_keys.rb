@@ -12,7 +12,8 @@ class WispersBase < Sinatra::Base
     content_type 'application/json'
 
     public_key_id = params[:id] 
-    public_key = Public_key.where(id: public_key_id)
+    public_key = Public_key.where(id: :$public_key_id)
+    public_key.call(:select, :public_key_id => public_key_id)
 
     if public_key
       JSON.pretty_generate(data: public_key)
