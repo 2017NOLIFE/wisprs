@@ -9,15 +9,15 @@ class Public_key < Sequel::Model
 	#set_allowed_columns :name, :key
 
 	# encrypt field data functions
-	def name = (name_plain)
+	def name=(name_plain)
 		self.to_secure = secureDB.encrypt(name_plain)
 	end
 
-	def key = (key_plain)
+	def key=(key_plain)
 		self.to_secure = secureDB.encrypt(key_plain)
 	end
 
-	def owner = (owner_plain)
+	def owner=(owner_plain)
 		self.to_secure = secureDB.encrypt(owner_plain)
 	end
 

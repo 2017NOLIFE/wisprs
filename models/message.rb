@@ -11,23 +11,23 @@ class Message < Sequel::Model
 	#set_allowed_columns :title, :about
 
 	# encrypt field data functions
-	def from = ( from_plain )
+	def from=( from_plain )
 		self.from_secure = secureDB.encrypt(from_plain)
 	end
 
-	def to = ( to_plain )
+	def to=( to_plain )
 		self.to_secure = secureDB.encrypt(to_plain)
 	end
 
-	def title = ( title_plain )
+	def title=( title_plain )
 		self.to_secure = secureDB.encrypt(title_plain)
 	end
 
-	def about = (about_plain)
+	def about=(about_plain)
 		self.to_secure = secureDB.encrypt(about_plain)
 	end
 
-	def status = (status_plain)
+	def status=(status_plain)
 		self.to_secure = secureDB.encrypt(status_plain)
 	end
 
