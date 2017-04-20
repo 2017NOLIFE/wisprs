@@ -2,6 +2,8 @@ require 'json'
 require 'base64'
 require 'sequel'
 
+require_relative '../lib/secure_db'
+
 # Holds a Public key's Information
 class Public_key < Sequel::Model
   plugin :uuid, field: :id
@@ -10,28 +12,28 @@ class Public_key < Sequel::Model
 
   # encrypt field data functions
   def name=(name_plain)
-    self.to_secure = secureDB.encrypt(name_plain)
+    self.to_secure = SecureDB.encrypt(name_plain)
   end
 
   def key=(key_plain)
-    self.to_secure = secureDB.encrypt(key_plain)
+    self.to_secure = SecureDB.encrypt(key_plain)
   end
 
   def owner=(owner_plain)
-    self.to_secure = secureDB.encrypt(owner_plain)
+    self.to_secure = SecureDB.encrypt(owner_plain)
   end
 
   # decrypt field data functions
   def name
-    secureDB.decrypt(name_secure)
+    SecureDB.decrypt(name_secure)
   end
 
   def key
-    secureDB.decrypt(key_secure)
+    SecureDB.decrypt(key_secure)
   end
 
   def owner
-    secureDB.decrypt(owner_secure)
+    SecureDB.decrypt(owner_secure)
   end
 
   def to_json(options = {})
