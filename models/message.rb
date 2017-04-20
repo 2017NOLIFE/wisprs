@@ -20,15 +20,19 @@ class Message < Sequel::Model
 	end
 
 	def title=( title_plain )
-		self.to_secure = SecureDB.encrypt(title_plain)
+		self.title_secure = SecureDB.encrypt(title_plain)
 	end
 
 	def about=(about_plain)
-		self.to_secure = SecureDB.encrypt(about_plain)
+		self.about_secure = SecureDB.encrypt(about_plain)
 	end
 
 	def status=(status_plain)
-		self.to_secure = SecureDB.encrypt(status_plain)
+		self.status_secure = SecureDB.encrypt(status_plain)
+	end
+
+	def body=(body_plain)
+		self.body_secure = SecureDB.encrypt(body_plain)
 	end
 
 	# decrypt field data functions
@@ -49,7 +53,11 @@ class Message < Sequel::Model
 	end
 
 	def status
-		SecureDB.decryt(status_secure)
+		SecureDB.decrypt(status_secure)
+	end
+
+	def body
+		SecureDB.decrypt(body_secure)
 	end
 
 # Json string
@@ -65,7 +73,7 @@ class Message < Sequel::Model
 	            about: about,
 	            expire_date: expire_date,
 	            status: status,
-	            body_secure: body_secure
+	            body: body
 						}
          },
          options)

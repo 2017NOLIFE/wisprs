@@ -12,15 +12,15 @@ class Public_key < Sequel::Model
 
   # encrypt field data functions
   def name=(name_plain)
-    self.to_secure = SecureDB.encrypt(name_plain)
+    self.name_secure = SecureDB.encrypt(name_plain)
   end
 
   def key=(key_plain)
-    self.to_secure = SecureDB.encrypt(key_plain)
+    self.key_secure = SecureDB.encrypt(key_plain)
   end
 
   def owner=(owner_plain)
-    self.to_secure = SecureDB.encrypt(owner_plain)
+    self.owner_secure = SecureDB.encrypt(owner_plain)
   end
 
   # decrypt field data functions
