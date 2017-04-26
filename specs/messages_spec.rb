@@ -1,9 +1,10 @@
 require_relative './spec_helper'
 
-describe 'Testing Configuration resource routes' do
+describe 'Testing Message resource routes' do
   before do
     Message.dataset.delete
     Public_key.dataset.delete
+    Account.dataset.delete
   end
 
   describe 'Create a new message' do
