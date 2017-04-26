@@ -59,4 +59,16 @@ class Account < Sequel::Model
          },
          options)
 	end
+
+	# Password set and gets
+	def check_pass(text_to_check)
+		salt = self.salt # probably wrong
+		SecureDB.password_hash(text_to_check,salt) == self.password_hash
+	end
+
+	def set_pass(new_pass)
+		salt = SecureDB.new_salt
+		SecureDB.password_hash(new_pass,salt)
+	end
+
 end
