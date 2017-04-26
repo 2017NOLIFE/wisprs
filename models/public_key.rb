@@ -7,6 +7,10 @@ require_relative '../lib/secure_db'
 # Holds a Public key's Information
 class Public_key < Sequel::Model
   plugin :uuid, field: :id
+  many_to_one :owner, class: :Account
+
+  plugin :timestamps, update_on_create: true
+	plugin :association_dependencies, owner: :destroy
 
   # set_allowed_columns :name, :key
 

@@ -7,19 +7,18 @@ require_relative '../lib/secure_db'
 # Holds a Message's Information
 class Message < Sequel::Model
 	plugin :uuid, field: :id
+	many_to_one :from, class: :Account
+	many_to_one :to, class: :Account
+
+	plugin :timestamps, update_on_create: true
+
 
 	#set_allowed_columns :title, :about
 
 	# encrypt field data functions
-	def from=( from_plain )
-		self.from_secure = SecureDB.encrypt(from_plain)
-	end
 
-	def to=( to_plain )
-		self.to_secure = SecureDB.encrypt(to_plain)
-	end
 
-	def title=( title_plain )
+	def title=(title_plain)
 		self.title_secure = SecureDB.encrypt(title_plain)
 	end
 
