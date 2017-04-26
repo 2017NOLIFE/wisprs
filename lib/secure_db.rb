@@ -34,21 +34,20 @@ class SecureDB
     simple_box.decrypt(ciphertext)
   end
 
-  def self.password_hash(plaintext_password,salt)
+  def self.password_hash(plaintext_password, salt)
     opslimit = 2**20
     memlimit = 2**24
     digest_size = 64
 
-    digest = RbNaCl::PasswordHash.scrypt(
+    RbNaCl::PasswordHash.scrypt(
       plaintext_password, Base64.strict_encode64(salt),
       opslimit, memlimit, digest_size
     )
   end
 
   def new_salt
-    salt = Base64.strict_encode64(
+    Base64.strict_encode64(
       RbNaCl::Random.random_bytes(RbNaCl::PasswordHash::SCrypt::SALTBYTES)
-      )
+    )
   end
-
 end
