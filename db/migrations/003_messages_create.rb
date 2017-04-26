@@ -6,8 +6,10 @@ Sequel.migration do
     create_table(:messages) do
       String :id, type: :uuid, primary_key: true
 
-      String :from_secure, null: false
-      String :to_secure, null: false
+      foreign_key :from, :accounts
+      foreign_key :to, :accounts
+      #String :from_secure, null: false
+      #String :to_secure, null: false
       String :title_secure, null: false
       String :about_secure, null: false
       String :expire_date, null: false
