@@ -8,7 +8,8 @@ describe 'Testing Public key resource routes' do
     @account = CreateAccount.call(
       username: 'test.name',
       password: 'mypass',
-      email: 'test@email.com')
+      email: 'test@email.com'
+    )
   end
 
   describe 'Creating new public key' do
@@ -16,7 +17,8 @@ describe 'Testing Public key resource routes' do
       public_key_data = {
         owner_id: @account.id,
         name: 'my_public_key',
-        key: 'my_key'}
+        key: 'my_key'
+      }
       @req_body = public_key_data.to_json
     end
     it 'HAPPY: should create a new unique public key' do
@@ -40,16 +42,14 @@ describe 'Testing Public key resource routes' do
       @new_public_key = CreatePublicKeyForAccount.call(
         owner_id: @account.id,
         name: 'my_public_key',
-        key: 'my_key')
+        key: 'my_key'
+      )
     end
     it 'HAPPY: should find an existing public key' do
-
       get "/api/v1/public_keys/#{@new_public_key.id}"
       _(last_response.status).must_equal 200
-
       results = JSON.parse(last_response.body)
       _(results['data']['id']).must_equal @new_public_key.id
-
     end
 
     it 'SAD: should not find existent public key' do
