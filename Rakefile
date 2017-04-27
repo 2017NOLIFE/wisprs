@@ -23,7 +23,7 @@ end
 
 namespace :db do
   require 'sequel'
-  require 'sequal/extensions/seed'
+  require 'sequel/extensions/seed'
   Sequel.extension :migration
 
   desc 'Run migrations'
@@ -41,7 +41,8 @@ namespace :db do
   end
 
   task :reset_seeds do
-    tables = [:accounts,:public_key,:messages]
+    tables = [:schema_seeds, :accounts, :public_keys,
+              :messages]
     tables.each { |table| DB[table].delete }
   end
 
