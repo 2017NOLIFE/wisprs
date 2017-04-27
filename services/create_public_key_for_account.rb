@@ -1,4 +1,4 @@
-# Service object to create a new project for an owner
+# Service object to create a new public key for an account
 class CreatePublicKeyForAccount
   def self.call(owner_id:, key:, name:)
     public_key = Public_key.new(
