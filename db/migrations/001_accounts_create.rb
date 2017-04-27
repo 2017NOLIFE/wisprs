@@ -5,13 +5,15 @@ Sequel.migration do
     create_table(:accounts) do
       String :id, type: :uuid, primary_key: true
 
-      String :username_secure, null: false
-      String :email_secure, null: false
-      String :password_hash_secure, null: false
-      String :salt_secure, null: false
+      String :username, null: false, unique: true
+      String :email, null: false, unique: true
+      String :password_hash, null: false
+      String :salt, null: false
 
       DateTime :created_at
       DateTime :updated_at
+
+
     end
   end
 end

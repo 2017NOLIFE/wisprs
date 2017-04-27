@@ -6,8 +6,8 @@ Sequel.migration do
       String :id, type: :uuid, primary_key: true
       foreign_key :owner_id, :accounts
 
-      String :name_secure, null: false
-      String :key_secure, null: false, unique: true
+      String :name, null: false
+      String :key, null: false, unique: true
 
       DateTime :created_at
       DateTime :updated_at
