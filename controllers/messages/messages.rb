@@ -14,7 +14,6 @@ class WispersBase < Sinatra::Base
     message_id = params[:id]
 
     message = Message.where(id: message_id).first
-    
 
     if message
       JSON.pretty_generate(data: message)
@@ -27,10 +26,10 @@ class WispersBase < Sinatra::Base
 
   post '/api/v1/messages/?' do
     content_type 'application/json'
-    
+
     begin
-      new_message = JSON.parse(request.body.read)
-      saved_message = Message.create(new_message)
+      message_info = JsonRequestBody.parse_symbolize(request.body.read)
+      new_message = SendMessage.call(message_info)
     rescue => e
       error_msg = "FAILED to create a new message: #{e.inspect}"
       logger.info error_msg
@@ -38,6 +37,6 @@ class WispersBase < Sinatra::Base
     end
 
     status 201
-    headers('Location' => [@request_url.to_s, saved_message.id].join('/'))
+    headers('Location' => [@request_url.to_s, new_message.id].join('/'))
   end
 end
