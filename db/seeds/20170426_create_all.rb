@@ -26,7 +26,7 @@ def create_public_key
   	loop do
     	public_key_item = public_key.next
    		CreatePublicKeyForAccount.call(owner_id: public_key_item[:id], key: public_key_item[:key],
-                               name: public_key_itemo[:name])
+                               name: public_key_item[:name])
   	end
 
 end
