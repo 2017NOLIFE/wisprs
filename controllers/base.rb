@@ -12,7 +12,7 @@ class WispersBase < Sinatra::Base
 
     SecureDB.setup(settings.config)
   end
-  
+
   configure :production do
     use Rack::SslEnforcer
   end
