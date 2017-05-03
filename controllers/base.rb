@@ -7,6 +7,12 @@ require 'rack/ssl-enforcer'
 class WispersBase < Sinatra::Base
   extend Econfig::Shortcut
 
+  ONE_MONTH = 2_592_000 # one month seconds
+  use Rack::Session::Cookie, expire_after: ONE_MONTH
+
+  set :views, File.expand_path('../../views', __FILE__)
+
+
   configure do
     Econfig.env = settings.environment.to_s
     Econfig.root = File.expand_path('..', settings.root)
@@ -19,11 +25,12 @@ class WispersBase < Sinatra::Base
   end
 
   before do
+    @current_account = session[:current_account]
     host_url = "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
     @request_url = URI.join(host_url, request.path.to_s)
   end
 
-  get '/?' do
-    'Secure chat web API up at /api/v1'
+  get '/' do
+    slim :home
   end
 end
