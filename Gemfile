@@ -14,12 +14,12 @@ gem 'hirb'
 gem 'rake'
 gem 'tux'
 
+gem 'rack-flash3'
 gem 'rack-ssl-enforcer'
 gem 'rbnacl-libsodium'
 
 gem 'http'
 gem 'slim'
-gem 'rack-flash3'
 
 group :development do
   gem 'pry'

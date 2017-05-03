@@ -11,7 +11,7 @@ class WispersBase < Sinatra::Base
   use Rack::Session::Cookie, expire_after: ONE_MONTH
 
   set :views, File.expand_path('../../views', __FILE__)
-
+  set :public_dir, File.expand_path('../../public', __FILE__)
 
   configure do
     Econfig.env = settings.environment.to_s

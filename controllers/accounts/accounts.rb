@@ -71,5 +71,4 @@ class WispersBase < Sinatra::Base
       redirect '/account/login'
     end
   end
-
 end
