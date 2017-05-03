@@ -17,6 +17,8 @@ gem 'tux'
 gem 'rack-ssl-enforcer'
 gem 'rbnacl-libsodium'
 
+gem 'http'
+
 group :development do
   gem 'pry'
   gem 'rerun'

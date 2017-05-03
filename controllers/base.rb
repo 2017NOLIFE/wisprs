@@ -1,5 +1,6 @@
 require 'econfig'
 require 'sinatra'
+require 'rack-flash'
 require 'rack/ssl-enforcer'
 
 # Secure chat based api
