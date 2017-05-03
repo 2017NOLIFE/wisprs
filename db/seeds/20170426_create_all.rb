@@ -25,8 +25,8 @@ def create_public_key
 	public_key = ALL_PUBLIC_KEY_INFO.each
   	loop do
     	public_key_item = public_key.next
-   		CreatePublicKeyForAccount.call(owner_id: public_key_item[:id], key: public_key_item[:key],
-                               name: public_key_item[:name])
+    	CreatePublicKeyForAccount.call(owner_id: public_key_item[:id], key: public_key_item[:key],
+                               owner_name: public_key_item[:name])
   	end
 
 end
@@ -35,9 +35,9 @@ def create_messages
 	messages = ALL_MESSAGES_INFO.each
   	loop do
     	messages_item = messages.next
-    	from_id = Account.first( username:  messages_item[:from_username] )[id]
-    	# CreatePublicKeyForAccount.call(from_id: messages_item[:from_id], to_id:messages_item[:to_id],
-   		# 	title:messages_item[:title_secure], about:messages_item[:about_secure], 
-   		# 	expire_date:messages_item[:expire_date], status:messages_item[:status_secure], body:messages_item[:body_secure])
+    	puts messages_item[:from_id]
+    	SendMessage.call(from_id: messages_item[:from_id], to_id:messages_item[:to_id],
+   			title:messages_item[:title_secure], about:messages_item[:about_secure], 
+   			expire_date:messages_item[:expire_date], status:messages_item[:status_secure], body:messages_item[:body_secure])
   	end
 end
