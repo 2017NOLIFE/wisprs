@@ -1,5 +1,6 @@
 require 'econfig'
 require 'sinatra'
+require 'rack/ssl-enforcer'
 
 # Secure chat based api
 class WispersBase < Sinatra::Base
@@ -10,6 +11,10 @@ class WispersBase < Sinatra::Base
     Econfig.root = File.expand_path('..', settings.root)
 
     SecureDB.setup(settings.config)
+  end
+
+  configure :production do
+    use Rack::SslEnforcer
   end
 
   before do
