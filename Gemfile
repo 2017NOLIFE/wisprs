@@ -33,5 +33,6 @@ group :development, :test do
 end
 
 group :production do
+  gem 'rack-ssl-enforcer'
   gem 'pg'
 end
