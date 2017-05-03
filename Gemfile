@@ -14,6 +14,7 @@ gem 'hirb'
 gem 'rake'
 gem 'tux'
 
+gem 'rack-ssl-enforcer'
 gem 'rbnacl-libsodium'
 
 group :development do
@@ -34,5 +35,4 @@ end
 
 group :production do
   gem 'pg'
-  gem 'rack-ssl-enforcer'
 end
