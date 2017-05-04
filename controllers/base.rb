@@ -1,17 +1,9 @@
 require 'econfig'
 require 'sinatra'
-require 'rack-flash'
-require 'rack/ssl-enforcer'
 
 # Secure chat based api
 class WispersBase < Sinatra::Base
   extend Econfig::Shortcut
-
-  ONE_MONTH = 2_592_000 # one month seconds
-  use Rack::Session::Cookie, expire_after: ONE_MONTH
-
-  set :views, File.expand_path('../../views', __FILE__)
-  set :public_dir, File.expand_path('../../public', __FILE__)
 
   configure do
     Econfig.env = settings.environment.to_s
@@ -20,17 +12,18 @@ class WispersBase < Sinatra::Base
     SecureDB.setup(settings.config)
   end
 
-  configure :production do
-    use Rack::SslEnforcer
+  def secure_request?
+   request.scheme.casecmp(settings.config.SECURE_SCHEME).zero?
   end
 
   before do
-    @current_account = session[:current_account]
-    host_url = "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
+    halt(403, 'Use HTTPS only') unless secure_request?
+
+    host_url = "#{settings.config.SECURE_SCHEME}://#{request.env['HTTP_HOST']}"
     @request_url = URI.join(host_url, request.path.to_s)
   end
 
-  get '/' do
-    slim :home
+  get '/?' do
+    'Secure chat web API up at /api/v1'
   end
 end
