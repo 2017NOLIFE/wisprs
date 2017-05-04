@@ -7,7 +7,7 @@ require_relative '../lib/secure_db'
 # Holds a Message's Information
 class Message < Sequel::Model
 	set_allowed_columns :title_secure, :about_secure
-	plugin :uuid, field: :id
+	#plugin :uuid, field: :id
 	many_to_one :from, class: :Account
 	many_to_one :to, class: :Account
 

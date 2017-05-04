@@ -8,7 +8,6 @@ require_relative '../lib/secure_db'
 class Account < Sequel::Model
 	set_allowed_columns :username, :email
 
-	plugin :uuid, field: :id
 	one_to_one :public_key, class: :Public_key, key: :owner_id
 	one_to_many :sent_messages, class: :Message, key: :from_id
 	one_to_many :received_messages, class: :Message, key: :to_id
