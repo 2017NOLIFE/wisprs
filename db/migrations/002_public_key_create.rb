@@ -3,7 +3,7 @@ require 'sequel'
 Sequel.migration do
   change do
     create_table(:public_keys) do
-      String :id, type: :uuid, primary_key: true
+      primary_key :id
       foreign_key :owner_id, :accounts
 
       String :name, null: false

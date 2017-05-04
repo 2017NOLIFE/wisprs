@@ -4,7 +4,7 @@ require 'sinatra'
 Sequel.migration do
   change do
     create_table(:messages) do
-      String :id, type: :uuid, primary_key: true
+      primary_key :id
 
       foreign_key :from_id, :accounts
       foreign_key :to_id, :accounts
