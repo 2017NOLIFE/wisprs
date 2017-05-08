@@ -1,3 +1,4 @@
+#base.rb
 require 'econfig'
 require 'sinatra'
 
@@ -13,7 +14,7 @@ class WispersBase < Sinatra::Base
   end
 
   def secure_request?
-   request.scheme.casecmp(settings.config.SECURE_SCHEME).zero?
+    request.scheme.casecmp(settings.config.SECURE_SCHEME).zero?
   end
 
   before do
