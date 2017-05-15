@@ -1,8 +1,11 @@
 require 'base64'
 require 'rbnacl/libsodium'
+require_relative 'securable'
 
 # Encrypt and Decrypt from Database
 class SecureDB
+  extend Securable
+
   # Generate key for Rake tasks (typically not called at runtime)
   def self.generate_key
     key = RbNaCl::Random.random_bytes(RbNaCl::SecretBox.key_bytes)
@@ -21,8 +24,7 @@ class SecureDB
   # Encrypt or else return nil if data is nil
   def self.encrypt(plaintext)
     return nil unless plaintext
-    simple_box = RbNaCl::SimpleBox.from_secret_key(key)
-    ciphertext = simple_box.encrypt(plaintext)
+    ciphertext = base_encrypt(plaintext)
     Base64.strict_encode64(ciphertext)
   end
 
@@ -30,8 +32,7 @@ class SecureDB
   def self.decrypt(ciphertext64)
     return nil unless ciphertext64
     ciphertext = Base64.strict_decode64(ciphertext64)
-    simple_box = RbNaCl::SimpleBox.from_secret_key(key)
-    simple_box.decrypt(ciphertext)
+    base_decrypt(ciphertext)
   end
 
   def self.new_salt
