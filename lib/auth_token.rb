@@ -1,10 +1,6 @@
 require 'base64'
 require_relative 'securable'
 
-## Encrypt and Decrypt Authorization Tokens
-# Usage examples:
-#  token = AuthToken.create({ key: 'value', key2: 12 }, AuthToken::ONE_MONTH)
-#  AuthToken.payload(token)   # => {"key"=>"value", "key2"=>12}
 
 class AuthToken
   extend Securable

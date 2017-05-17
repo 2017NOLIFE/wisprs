@@ -6,21 +6,6 @@ require_relative 'securable'
 class SecureDB
   extend Securable
 
-  # Generate key for Rake tasks (typically not called at runtime)
-  def self.generate_key
-    key = RbNaCl::Random.random_bytes(RbNaCl::SecretBox.key_bytes)
-    Base64.strict_encode64 key
-  end
-
-  # Call setup once to pass in config variable with DB_KEY attribute
-  def self.setup(config)
-    @config = config
-  end
-
-  def self.key
-    @key ||= Base64.strict_decode64(@config.DB_KEY)
-  end
-
   # Encrypt or else return nil if data is nil
   def self.encrypt(plaintext)
     return nil unless plaintext
