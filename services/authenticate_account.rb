@@ -2,6 +2,7 @@
 class AuthenticateAccount
   def self.call(credentials)
     account = Account.first(username: credentials['username'])
-    account&.password?(credentials['password']) ? account : nil
+    return nil unless account&.password?(credentials[:password])
+    { account: account, auth_token: AuthToken.create(account) }
   end
 end
