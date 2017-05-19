@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Service object to create a new public key for an account
 class CreatePublicKeyForAccount
   def self.call(owner_id:, key:, name:)

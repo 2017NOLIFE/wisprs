@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 # Service object to create new accounts using all columns
+
 class CreateAccount
   def self.call(registration)
     account = Account.new(
