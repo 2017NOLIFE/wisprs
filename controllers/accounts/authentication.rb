@@ -11,8 +11,6 @@ class WispersBase < Sinatra::Base
       halt 500
       logger.info "Cannot authenticate: #{e}"
     end
-
-    puts "AUTH: #{authenticated}"
     authenticated ? authenticated.to_json : halt(403)
   end
 end
