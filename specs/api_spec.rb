@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Tests for the route route
+
 require_relative './spec_helper'
 
 describe 'Test root route' do
