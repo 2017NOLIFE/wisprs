@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Migration for Message table
+
 require 'sequel'
 require 'sinatra'
 
@@ -5,6 +9,7 @@ Sequel.migration do
   change do
     create_table(:messages) do
       primary_key :id
+      foreign_key :chat_id, :chats
 
       foreign_key :from_id, :accounts
       foreign_key :to_id, :accounts

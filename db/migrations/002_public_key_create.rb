@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+# Migration for Public keys
+
 require 'sequel'
 
 Sequel.migration do
@@ -8,7 +11,6 @@ Sequel.migration do
 
       String :name, null: false
       String :key, null: false, unique: true
-
       DateTime :created_at
       DateTime :updated_at
     end

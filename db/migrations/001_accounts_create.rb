@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+# Migration for Account
+
 require 'sequel'
 
 Sequel.migration do
@@ -7,13 +10,10 @@ Sequel.migration do
 
       String :username, null: false, unique: true
       String :email, null: false, unique: true
-      String :password_hash, null: false
+      String :password_hash, text: true, null: false
       String :salt, null: false
-
       DateTime :created_at
       DateTime :updated_at
-
-
     end
   end
 end
