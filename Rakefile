@@ -41,11 +41,19 @@ namespace :db do
   end
 
   task :reset_seeds do
-    #tables = [:schema_seeds, :accounts, :public_keys,
-    #          :messages]
-    #tables.each { |table| DB[table].delete }
-    DB[:schema_seeds].delete
-    Account.dataset.destroy
+    tables = [:schema_seeds, :accounts, :public_keys,
+              :messages, :chats]
+    tables.each do |table|
+      begin
+        if DB.table_exists? table
+          DB[table].delete
+        end
+      rescue Exception => ex
+        puts "An error of type #{ex.class} happened, message is #{ex.message}"
+      end
+    end
+    #DB[:schema_seeds].delete
+    #Account.dataset.destroy
   end
 
   desc 'Seeds the development database'
