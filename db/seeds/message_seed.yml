@@ -1,15 +1,22 @@
 ---
-- :from_username: John
-  :to_username: Ray
-  :title: Hello
-  :about: Hello
-  :expire_date: 2017,02,15
-  :status: readed
-  :body: Hello world.
-#- :from_username: Ray
-#  :to_username: Alice
-#  :title: Greetings
-#  :about: Greetings
-#  :expire_date: 2017,02,15
-#  :status: readed
-#  :body: Greetings from the space
+- :from_username: odilon
+  :to_username: ismael
+  :title: Ghost protocol
+  :about: Ghost protocol
+  :expire_date: 2017/02/15
+  :status: UNREAD
+  :body: Your mission if you accept it would be to ...
+- :from_username: odilon
+  :to_username: cheng.kai
+  :title: Desert storm
+  :about: Desert storm
+  :expire_date: 2017/05/15
+  :status: UNREAD
+  :body: Your mission if you accept it would be to ...
+- :from_username: cheng.kai
+  :to_username: odilon
+  :title: Re Desert storm
+  :about: Re Desert storm
+  :expire_date: 2017/05/17
+  :status: UNREAD
+  :body: Mission accepted
