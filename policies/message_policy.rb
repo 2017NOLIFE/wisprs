@@ -16,7 +16,7 @@ class MessagePolicy
   end
 
   def can_delete?
-    account_sent_message?
+    account_sent_message? || account_recieves_message?
   end
 
   def summary
