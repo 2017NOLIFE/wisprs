@@ -7,13 +7,17 @@ class WispersBase < Sinatra::Base
     content_type 'application/json'
 
     begin
-      id = params[:id]
-      halt 401 unless authorized_account?(env, id)
-      all_messages = FindAllAccountMessages.call(id: id)
-      JSON.pretty_generate(data: all_messages)
-    rescue => e
-      logger.info "FAILED to find messages for user: #{e}"
-      halt 404
+      requesting_account = authenticated_account(env)
+      target_account = Account[params[:account_id]]
+
+      viewable_messages =
+        ProjectPolicy::Scope.new(requesting_account, target_account)
+                            .viewable
+      JSON.pretty_generate(data: viewable_messages)
+    rescue
+      error_msg = "FAILED to find Messages for user: #{params[:account_id]}"
+      logger.info error_msg
+      halt 404, error_msg
     end
   end
   # Send a new project

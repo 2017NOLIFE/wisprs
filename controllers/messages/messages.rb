@@ -4,6 +4,7 @@ require 'sinatra'
 class WispersBase < Sinatra::Base
   def authorized_affiliated_message(env, message_id)
     account = authenticated_account(env)
+
     all_messages = FindAllAccountMessages.call(id: account['id'])
     all_messages.select { |msg| msg.id == message_id.to_i }.first
   rescue => e

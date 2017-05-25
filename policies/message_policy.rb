@@ -4,7 +4,7 @@
 class MessagePolicy
   def initialize(account, message)
     @account = account
-    @configuration = message
+    @message = message
   end
 
   def can_view?
