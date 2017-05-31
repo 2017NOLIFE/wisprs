@@ -20,8 +20,10 @@ class WispersBase < Sinatra::Base
 
   def authenticated_account(env)
     scheme, auth_token = env['HTTP_AUTHORIZATION'].split(' ')
+    return nil unless scheme.match?(/^Bearer$/i)
+
     account_payload = AuthToken.payload(auth_token)
-    scheme.match?(/^Bearer$/i) ? account_payload : nil
+    BaseAccount[account_payload['id']]
   end
 
   def authorized_account?(env, id)

@@ -40,8 +40,7 @@ class BaseAccount < Sequel::Model
     JSON({  type: type,
             id: id,
             username: username,
-            email: email,
-            salt: salt
+            email: email
          },
          options)
   end

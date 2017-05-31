@@ -6,7 +6,7 @@ class WispersBase < Sinatra::Base
   get '/api/v1/accounts/:id/messages/?' do
     content_type 'application/json'
 
-    begin
+    #begin
       requesting_account = authenticated_account(env)
       target_account = BaseAccount[params[:id]]
 
@@ -14,11 +14,11 @@ class WispersBase < Sinatra::Base
         MessagePolicy::Scope.new(requesting_account, target_account)
                             .viewable
       JSON.pretty_generate(data: viewable_messages)
-    rescue
-      error_msg = "FAILED to find Messages for user: #{params[:id]}"
-      logger.info error_msg
-      halt 404, error_msg
-    end
+    #rescue
+    #  error_msg = "FAILED to find Messages for user: #{params[:id]}"
+    #  logger.info error_msg
+    #  halt 404, error_msg
+    #end
   end
   # Send a new project
   post '/api/v1/accounts/:id/send_message/?' do

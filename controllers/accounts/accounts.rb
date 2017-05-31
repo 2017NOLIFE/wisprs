@@ -7,7 +7,7 @@ class WispersBase < Sinatra::Base
     content_type 'application/json'
 
     id = params[:id]
-    account = Account.where(id: id).first
+    account = BaseAccount.where(id: id).first
 
     if account
       sent_messages = account.sent_messages

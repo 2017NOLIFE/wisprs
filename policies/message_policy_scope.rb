@@ -25,7 +25,7 @@ class MessagePolicy
     end
     # this may be redundant, also need to refactor for chats to clean this up
     def includes_receiver?(message, account)
-      message.receiver.include? account
+      message.to == account
     end
   end
 end
