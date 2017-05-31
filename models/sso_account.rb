@@ -1,0 +1,2 @@
+class SsoAccount < BaseAccount
+end

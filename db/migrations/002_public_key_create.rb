@@ -7,7 +7,7 @@ Sequel.migration do
   change do
     create_table(:public_keys) do
       primary_key :id
-      foreign_key :owner_id, :accounts
+      foreign_key :owner_id, :base_accounts
 
       String :name, null: false
       String :key, null: false, unique: true

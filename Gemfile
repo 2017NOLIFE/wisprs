@@ -10,12 +10,12 @@ gem 'sequel-seed'
 
 gem 'json'
 
+gem 'http'
 gem 'hirb'
 gem 'rake'
 gem 'tux'
 
 gem 'rbnacl-libsodium'
-
 
 group :development do
   gem 'pry'

@@ -13,8 +13,8 @@ class Message < Sequel::Model
   set_allowed_columns :title_secure, :about_secure
 
   many_to_one :chat, class: :Chat
-  many_to_one :from, class: :Account
-  many_to_one :to, class: :Account
+  many_to_one :from, class: :BaseAccount
+  many_to_one :to, class: :BaseAccount
 
   plugin :timestamps, update_on_create: true
 

@@ -6,8 +6,8 @@ class SendMessage
   def self.call(from_id:, to_id:, title:, about:, expire_date:, status:, body:)
     message = Message.new()
 
-    from = Account[from_id]
-    to = Account[to_id]
+    from = BaseAccount[from_id]
+    to = BaseAccount[to_id]
     chat = Chat.first(sender: from, receiver: to)
     if chat.nil?
       chat = Chat.first(sender: to, receiver: from)

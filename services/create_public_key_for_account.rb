@@ -6,7 +6,7 @@ class CreatePublicKeyForAccount
     public_key = Public_key.new(
       key: key, name: name
     )
-    owner = Account[owner_id]
+    owner = BaseAccount[owner_id]
     public_key.owner = owner
     public_key.save
   end

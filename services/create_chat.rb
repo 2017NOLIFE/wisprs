@@ -5,8 +5,8 @@
 class CreateChat
   def self.call(sender_id:, receiver_id:)
     chat = Chat.new()
-    chat.sender = Account[sender_id]
-    chat.receiver = Account[receiver_id]
+    chat.sender = BaseAccount[sender_id]
+    chat.receiver = BaseAccount[receiver_id]
     chat.save
   end
 end
