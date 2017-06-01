@@ -1,5 +1,5 @@
 require 'sinatra'
-
+require 'econfig'
 # /api/v1/accounts authentication related routes
 class WispersBase < Sinatra::Base
   post '/api/v1/accounts/authenticate' do

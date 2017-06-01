@@ -7,7 +7,7 @@ gem 'sinatra'
 
 gem 'sequel'
 gem 'sequel-seed'
-
+gem 'gpgme'
 gem 'json'
 
 gem 'http'

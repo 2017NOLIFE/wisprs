@@ -31,6 +31,7 @@ class WispersBase < Sinatra::Base
       new_public_key = CreatePublicKeyForAccount.call(public_key_info)
     rescue => e
       error_msg = "FAILED to create a new public key: #{e.inspect}"
+      p error_msg
       logger.info error_msg
       halt 400, error_msg
     end

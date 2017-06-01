@@ -7,6 +7,7 @@ require 'base64'
 require 'sequel'
 
 require_relative '../lib/secure_db'
+require_relative './base_accounts'
 
 # Holds an Account's Information
 class Account < BaseAccount

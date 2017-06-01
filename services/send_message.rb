@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Service object to send a new message
+require 'gpgme'
 
 class SendMessage
   def self.call(from_id:, to_id:, title:, about:, expire_date:, status:, body:)
@@ -17,6 +18,11 @@ class SendMessage
                 receiver_id: to_id)
       end
     end
+
+    email = BaseAccount.find(:id => to_id).email
+    pb_key = Public_key.find(:owner_id => to_id).key
+    
+
     message.chat = chat
     message.about = about
     message.title = title
@@ -26,5 +32,32 @@ class SendMessage
     message.body = body
     message.status = status
     message.save
+
+    begin
+      options = {}
+      plain = body
+      keys = pb_key
+
+      plain_data  = GPGME::Data.new(plain)
+      cipher_data = GPGME::Data.new(options[:output])
+      keys = pb_key
+
+      flags = 0
+      flags |= GPGME::ENCRYPT_ALWAYS_TRUST if options[:always_trust]
+
+      GPGME::Ctx.new(options) do |ctx|
+        begin
+          ctx.encrypt(keys, plain_data, cipher_data, flags)
+        rescue => e
+          p "#{e.message}!!!!!!"
+        end
+      end
+
+      # p cipher_data
+    rescue => e
+      p "#{e.message}"
+    end
+
   end
+
 end

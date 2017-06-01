@@ -1,7 +1,13 @@
 ---
   development:
+    API_URL: http://localhost:3000/api/v1
+    APP_URL: http://localhost:9292
+    DB_KEY: 'x8cXE4MLpGGGdX8cm5NQREoyfdPVEpKKlDGOD6xZsjQ='
     SECURE_SCHEME: 'HTTP'
   test:
+    API_URL: http://localhost:3000/api/v1
+    APP_URL: http://localhost:9292
+    DB_KEY: 'VK3aUKDym0DkA6QUmqzUzFVIHiquusiwYgmNxxcBjOI='
     SECURE_SCHEME: 'HTTP'
   production:
     SECURE_SCHEME: 'HTTPS'
