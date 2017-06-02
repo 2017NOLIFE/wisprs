@@ -40,7 +40,7 @@ class SendMessage
 
       plain_data  = GPGME::Data.new(plain)
       cipher_data = GPGME::Data.new(options[:output])
-      keys = pb_key
+      keys        = GPGME::Key.import(pb_key)
 
       flags = 0
       flags |= GPGME::ENCRYPT_ALWAYS_TRUST if options[:always_trust]
@@ -49,7 +49,7 @@ class SendMessage
         begin
           ctx.encrypt(keys, plain_data, cipher_data, flags)
         rescue => e
-          p "#{e.message}!!!!!!"
+          p "#{e.message},#{e.class}"
         end
       end
 
