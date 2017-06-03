@@ -21,7 +21,18 @@ class SendMessage
 
     email = BaseAccount.find(:id => to_id).email
     pb_key = Public_key.find(:owner_id => to_id).key
-    
+
+    begin
+      key = GPGME::Data.new(pb_key.to_s)
+      data = GPGME::Data.new(body.to_s)
+
+      ctx = GPGME::Ctx.new :keylist_mode => GPGME::KEYLIST_MODE_EXTERN
+      ctx.import_keys(key)
+      crypto = GPGME::Crypto.new(:armor => true, :always_trust => true)
+      e = crypto.encrypt(data)
+    rescue => e
+      p "#{e.message},#{e.class}"
+    end
 
     message.chat = chat
     message.about = about
@@ -29,34 +40,10 @@ class SendMessage
     message.from = from
     message.to = to
     message.expire_date = expire_date
-    message.body = body
+    message.body = e.to_s
     message.status = status
     message.save
 
-    begin
-      options = {}
-      plain = body
-      keys = pb_key
-
-      plain_data  = GPGME::Data.new(plain)
-      cipher_data = GPGME::Data.new(options[:output])
-      keys        = GPGME::Key.import(pb_key)
-
-      flags = 0
-      flags |= GPGME::ENCRYPT_ALWAYS_TRUST if options[:always_trust]
-
-      GPGME::Ctx.new(options) do |ctx|
-        begin
-          ctx.encrypt(keys, plain_data, cipher_data, flags)
-        rescue => e
-          p "#{e.message},#{e.class}"
-        end
-      end
-
-      # p cipher_data
-    rescue => e
-      p "#{e.message}"
-    end
 
   end
 
