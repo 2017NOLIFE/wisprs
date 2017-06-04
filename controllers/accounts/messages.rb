@@ -24,19 +24,23 @@ class WispersBase < Sinatra::Base
   post '/api/v1/accounts/:id/send_message/?' do
     begin
       new_message_data = JSON.parse(request.body.read)
+
+      receiver_name =  new_message_data['receiver_name']
       saved_message = SendMessage.call(
         from_id: params[:id],
-        to_id: new_message_data['to_id'],
+        to_id: '0',
         title: new_message_data['title'],
         about: new_message_data['about'],
         expire_date: new_message_data['expire_date'],
         status: new_message_data['status'],
-        body: new_message_data['body']
+        body: new_message_data['body'],
+        receiver_name: receiver_name
       )
       new_location = URI.join(@request_url.to_s + '/',
                               saved_message.id.to_s).to_s
     rescue => e
       logger.info "FAILED to send the new message: #{e.inspect}"
+      p "#{e.message}"
       halt 400
     end
 

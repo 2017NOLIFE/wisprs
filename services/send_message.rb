@@ -4,23 +4,32 @@
 require 'gpgme'
 
 class SendMessage
-  def self.call(from_id:, to_id:, title:, about:, expire_date:, status:, body:)
-    message = Message.new()
+  def self.call(from_id:, to_id:, title:, about:, expire_date:, status:, body:, receiver_name:)
+    p receiver_name
+    to_id = BaseAccount.find(:username => receiver_name).id
+    begin
+      message = Message.new()
 
-    from = BaseAccount[from_id]
-    to = BaseAccount[to_id]
-    chat = Chat.first(sender: from, receiver: to)
-    if chat.nil?
-      chat = Chat.first(sender: to, receiver: from)
+      from = BaseAccount[from_id]
+      
+      to = BaseAccount[to_id]
+
+      chat = Chat.first(sender: from, receiver: to)
       if chat.nil?
-        chat = CreateChat.call(
-                sender_id: from_id,
-                receiver_id: to_id)
+        chat = Chat.first(sender: to, receiver: from)
+        if chat.nil?
+          chat = CreateChat.call(
+                  sender_id: from_id,
+                  receiver_id: to_id)
+        end
       end
-    end
 
-    email = BaseAccount.find(:id => to_id).email
-    pb_key = Public_key.find(:owner_id => to_id).key
+      email = BaseAccount.find(:id => to_id).email
+      pb_key = Public_key.find(:owner_id => to_id).key
+
+    rescue => e
+      p "#{e.message}!!!"
+    end
 
     begin
       key = GPGME::Data.new(pb_key.to_s)
