@@ -21,7 +21,8 @@ class WispersBase < Sinatra::Base
 
   post '/api/v1/accounts/?' do
     begin
-      registration_info = JsonRequestBody.parse_symbolize(request.body.read)
+      registration_info = SignedRequest.new(settings.config)
+                                       .parse(request.body.read)
       new_account = CreateAccount.call(registration_info)
     rescue => e
       logger.info "FAILED to create new account: #{e.inspect}"

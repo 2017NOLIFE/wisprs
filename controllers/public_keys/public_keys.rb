@@ -27,11 +27,14 @@ class WispersBase < Sinatra::Base
     content_type 'application/json'
 
     begin
-      public_key_info = JsonRequestBody.parse_symbolize(request.body.read)
-      new_public_key = CreatePublicKeyForAccount.call(public_key_info)
+      public_key_info = JSON.parse(request.body.read)
+      new_public_key = CreatePublicKeyForAccount.call(
+        owner_id: public_key_info['owner_id'],
+        key: public_key_info['key'],
+        name: public_key_info['name']
+      )
     rescue => e
       error_msg = "FAILED to create a new public key: #{e.inspect}"
-      p error_msg
       logger.info error_msg
       halt 400, error_msg
     end

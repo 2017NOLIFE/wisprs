@@ -5,7 +5,8 @@ class WispersBase < Sinatra::Base
   post '/api/v1/accounts/authenticate' do
     content_type 'application/json'
     begin
-      credentials = JsonRequestBody.parse_symbolize(request.body.read)
+      credentials = SignedRequest.new(settings.config)
+                                 .parse(request.body.read)
       authenticated = AuthenticateAccount.call(credentials)
     rescue => e
       halt 500
@@ -16,14 +17,14 @@ class WispersBase < Sinatra::Base
 
   get '/api/v1/github_account' do
     content_type 'application/json'
-    #begin
+    begin
       sso_account, auth_token =
         AuthenticateSsoAccount.new(settings.config).call(params['code'])
       { account: sso_account, auth_token: auth_token }.to_json
-    #rescue => e
-    #  logger.error "FAILED to validate Github account: #{e.inspect}"
-    #  halt 400
-    #end
+    rescue => e
+      logger.error "FAILED to validate Github account: #{e.inspect}"
+      halt 400
+    end
   end
 
   get '/api/v1/github_sso_url' do

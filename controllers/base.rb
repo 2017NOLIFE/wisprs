@@ -5,6 +5,7 @@ require 'sinatra'
 # Secure chat based api
 class WispersBase < Sinatra::Base
   extend Econfig::Shortcut
+  enable :logging
 
   configure do
     Econfig.env = settings.environment.to_s
