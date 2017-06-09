@@ -11,8 +11,8 @@ class SignedRequest
   def parse(json_str)
     parsed = JSON.parse(json_str)
     puts "Parsed: #{parsed}"
-    #raise 'Data not properly signed' unless
-    #  verify(parsed['signature'], parsed['data'])
+    raise 'Data not properly signed' unless
+      verify(parsed['signature'], parsed['data'])
 
     symbolized_hash_keys(parsed['data'])
   end
